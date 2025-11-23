@@ -65,8 +65,8 @@ The included **docker-compose.yml** file defines three services:
 
 ---
 
-# Running the App with Docker Compose
-## From the project root:
+## Running the App with Docker Compose
+### From the project root:
 ```bash 
 docker compose up 
 ```
