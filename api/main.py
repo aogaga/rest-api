@@ -2,12 +2,14 @@ from fastapi import FastAPI
 from common import List, Optional, logger
 from services.restaurant_service import RestaurantService
 from models.restaurant import Restaurant
-
-
+from cors import add_cors_middleware
 restaurantService = RestaurantService()
 
 
 app = FastAPI()
+
+# Apply CORS middleware
+add_cors_middleware(app)
 
 @app.get("/")
 def read_root():

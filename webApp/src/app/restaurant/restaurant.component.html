@@ -1,0 +1,55 @@
+<div class="page-wrapper">
+  <header class="bg-light">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <a class="app-title" href="/">Rest App</a>
+    </div>
+
+    <div class="col-md-6">
+      <input
+        #searchInput
+        placeholder="Search restaurants..."
+        aria-label="Restaurant search input"
+        class="form-control form-control-lg"
+        (keyup.enter)="search(searchInput.value)"
+      />
+
+    </div>
+
+    <div class="col-md-3">
+      <button
+        (click)="search(searchInput.value)"
+        aria-label="Search restaurants"
+        class="btn btn-primary btn-lg"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+  </header>
+
+  <div class="container">
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div class="row" *ngIf="restaurants.length; else noResults">
+      <div *ngFor="let r of restaurants; trackBy: trackById"  class="col-md-4 ">
+        <div class="restaurant-card bg-light rounded-4 shadow-sm ">
+          <h3>{{ r.name }}</h3>
+          <p ><i class="bi bi-house"></i>{{ r.address }}, {{ r.city }}</p>
+          <p><i class="bi bi-star-fill"></i> Rating: {{ r.rating }} | Phone: {{ r.phone }}</p>
+          <p><i class="bi bi-tags-fill"></i>Categories: {{ r.categories?.join(', ') }}</p>
+          <p><a [href]="r.url" target="_blank" rel="noopener"> <i class="bi bi-link"></i>View on Yelp</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<ng-template #noResults>
+  <p>No restaurants found.</p>
+</ng-template>
+</div>
