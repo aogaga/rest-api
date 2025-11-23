@@ -81,6 +81,7 @@ docker compose up
 | Redis                | localhost:6379             |
 
 ## Shutting down the App with Docker Compose
+### From the project root:
 ```bash 
 docker compose down
 ```
