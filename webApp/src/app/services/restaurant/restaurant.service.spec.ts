@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RestaurantService } from './restaurant.service';
-import { provideHttpClientTesting } from '@angular/common/http';
-import { HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('RestaurantService', () => {
   let service: RestaurantService;
@@ -9,10 +8,8 @@ describe('RestaurantService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        RestaurantService,
-        provideHttpClientTesting() // <-- provides HttpClient for tests
-      ]
+      imports: [HttpClientTestingModule], // <-- correct way to provide HttpClient for testing
+      providers: [RestaurantService]
     });
 
     service = TestBed.inject(RestaurantService);
