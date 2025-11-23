@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from common import List, Optional, logger
+from core.common import List, Optional, logger
 from services.restaurant_service import RestaurantService
 from models.restaurant import Restaurant
-from cors import add_cors_middleware
+from core.cors import add_cors_middleware
 restaurantService = RestaurantService()
 
 

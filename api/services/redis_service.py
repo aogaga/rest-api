@@ -1,7 +1,7 @@
 import json
-from common import  logger, Optional
+from core.common import  logger, Optional
 import redis.asyncio as redis
-from config import REDIS_URL  # make sure REDIS_URL is defined in your config
+from core.config import REDIS_URL
 
 
 class RedisService:

@@ -1,13 +1,12 @@
-from typing import List, Optional, Dict, Any
-from common import logger
+
+from core.common import logger, List, Optional, Dict, Any
 from services.yelp_api_service import YelpApiService
 from models.restaurant import Restaurant
-from config import LOCATION
+from core.config import LOCATION
 from services.redis_service import RedisService
 
 class RestaurantService:
     def __init__(self, redis_service: RedisService = None, yelp: YelpApiService = None):
-        # Use injected instances if provided, else fallback to default globals
         self.redis_service = redis_service or RedisService()
         self.yelp = yelp or YelpApiService()
     async def search(self, term: Optional[str] = "restaurants", limit: int = 20) -> List[Restaurant]:

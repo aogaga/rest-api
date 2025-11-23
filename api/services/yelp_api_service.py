@@ -1,7 +1,6 @@
-from typing import  Dict, Any, Optional
 import httpx
-from common import logger, List
-from config import YELP_BASE, YELP_API_KEY
+from core.common import logger, List,  Dict, Any
+from core.config import YELP_BASE, YELP_API_KEY
 
 class YelpApiService:
     def __init__(self):
