@@ -5,18 +5,14 @@ from models.restaurant import Restaurant
 from config import LOCATION
 from services.redis_service import RedisService
 
-# Yelp API client
-yelp = YelpApiService()
-
-# Redis cache service
-redis_service = RedisService()
-
-
 class RestaurantService:
-
+    def __init__(self, redis_service: RedisService = None, yelp: YelpApiService = None):
+        # Use injected instances if provided, else fallback to default globals
+        self.redis_service = redis_service or RedisService()
+        self.yelp = yelp or YelpApiService()
     async def search(self, term: Optional[str] = "restaurants", limit: int = 20) -> List[Restaurant]:
         cache_key = f"yelp:{LOCATION}:{term}:{limit}"
-        cached_data = await redis_service.get(cache_key)
+        cached_data = await self.redis_service.get(cache_key)
         restaurants: List[Restaurant] = []
 
         if cached_data:
@@ -33,14 +29,14 @@ class RestaurantService:
 
         try:
             logger.info("Searching Yelp for term: %s, location: %s, limit: %d", term, LOCATION, limit)
-            results = await yelp.search(term, LOCATION, limit)
+            results = await self.yelp.search(term, LOCATION, limit)
 
             if results:
                 logger.info("Found %d businesses", len(results))
                 restaurants = [self._business_to_restaurant(biz) for biz in results]
 
             # Cache the result (even if empty) using model_dump()
-            await redis_service.set(cache_key, [r.model_dump() for r in restaurants], ex=600)
+            await self.redis_service.set(cache_key, [r.model_dump() for r in restaurants], ex=600)
 
             if not restaurants:
                 logger.info("No businesses found for term='%s'", term)
