@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get("/search", response_model=List[Restaurant])
 async def search(term: Optional[str] = "restaurants", limit: int = 10):
     try:
-        result = a 
+        result = await restaurantService.search(term, limit)
         if result:
             return result;
     except Exception as ex:
