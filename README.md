@@ -40,7 +40,7 @@ This project is a **full-stack application** that provides restaurant search fun
 │  └─ ...
 ├─ docker-compose.yml
 └─ README.md
-
+```
 ---
 
 ## Docker Compose
