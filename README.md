@@ -66,7 +66,7 @@ The included **docker-compose.yml** file defines three services:
 ---
 
 ## Running the App with Docker Compose
-### From the project root:
+#### From the project root:
 ```bash 
 docker compose up 
 ```
@@ -81,11 +81,12 @@ docker compose up
 | Redis                | localhost:6379             |
 
 ## Shutting down the App with Docker Compose
-### From the project root:
+#### From the project root:
 ```bash 
 docker compose down
 ```
 ## Running unit tests
+#### From the project root:
 ```bash 
  PYTHONPATH=. pytest -v tests  
  ```
