@@ -1,16 +1,16 @@
-from typing import List, Dict, Any, Optional
+from typing import  Dict, Any, Optional
 import httpx
 from common import logger, List
-from config import YELP_BASE
+from config import YELP_BASE, YELP_API_KEY
 
 class YelpApiService:
-    def __init__(self, api_key: Optional[str]):
-        self.api_key = api_key
-        self.headers = (
-            {"Authorization": f"Bearer {self.api_key}"} if self.api_key else {}
-        )
+    def __init__(self):
+
+        self.headers = self.headers = {"Authorization": f"Bearer {YELP_API_KEY}"}
+
     async def search(self, term: str, location: str, limit: int = 10) -> List[Dict[str, Any]]:
-        if not self.api_key:
+        if not YELP_API_KEY:
+            logger.warning("Yelp API key is not configured.")
             return []
 
         params = {
@@ -35,6 +35,4 @@ class YelpApiService:
             logger.error(f"Request error occurred: {e}")
         except Exception as e:
             logger.error(f"An unexpected error occurred: {e}")
-
-        # Return empty list if an exception occurred
         return []
